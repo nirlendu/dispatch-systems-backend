@@ -20,6 +20,12 @@ public class RideLogic {
         this.rideDao = rideDao;
     }
 
+    /**
+     * Insert a new ride
+     * @param rideId
+     * @param customerId
+     * @return
+     */
     public String insertRide(
             String rideId,
             String customerId
@@ -38,12 +44,19 @@ public class RideLogic {
         }
     }
 
+    /**
+     * List possible due rides of a driver
+     * @param driverId
+     * @return
+     */
     public List<RideResponse> getRidesByDriver(
             String driverId
     ){
         try {
 
+            // update completed rides
             this.completeRide();
+
             List<RideResponse> rides = rideDao.getRidesByDriver(driverId);
 
             return rides;
@@ -54,6 +67,11 @@ public class RideLogic {
         }
     }
 
+    /**
+     * Current ongoing rides of a driver
+     * @param driverId
+     * @return
+     */
     public Integer currentOngoingRides(
             String driverId
     ){
@@ -70,16 +88,24 @@ public class RideLogic {
         }
     }
 
+    /**
+     * Accept a new ride
+     * @param rideId
+     * @param driverId
+     * @return
+     */
     public String acceptRide(
             String rideId,
             String driverId
     ){
         try {
 
+            // Ensure there are no ongoing rides
             if(currentOngoingRides(driverId) > 0){
                 return null;
             }
 
+            // Accept a ride
             rideDao.acceptRide(
                     rideId,
                     new Timestamp(System.currentTimeMillis()),
@@ -93,9 +119,13 @@ public class RideLogic {
         }
     }
 
+    /**
+     * Complete a ride
+     */
     public void completeRide(){
         try {
 
+            // Reference time is 5 min before current time
             rideDao.completeRide(
                     new Timestamp(System.currentTimeMillis()),
                     new Timestamp(System.currentTimeMillis() - 5*60*1000)
@@ -106,6 +136,10 @@ public class RideLogic {
         }
     }
 
+    /**
+     * List all rides
+     * @return
+     */
     public List<RideResponse> getRides(){
         try {
 

@@ -98,7 +98,7 @@ public class RideLogic {
 
             rideDao.completeRide(
                     new Timestamp(System.currentTimeMillis()),
-                    new Timestamp(System.currentTimeMillis()+5*60*1000)
+                    new Timestamp(System.currentTimeMillis() - 5*60*1000)
             );
 
         } catch (Exception e){

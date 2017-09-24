@@ -8,3 +8,7 @@ server:
 
 # Database settings.
 database:
+    driverClass: com.mysql.jdbc.Driver
+    user: panallyadmin
+    password: Panally090117
+    url: jdbc:mysql://panally.cinqufhfwblf.ap-south-1.rds.amazonaws.com/test

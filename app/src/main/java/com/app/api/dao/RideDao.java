@@ -34,7 +34,7 @@ public interface RideDao {
             @Bind("driverId") String driverId
     );
 
-    @SqlUpdate("UPDATE `Ride` SET `Status` = 'COMPLETE', `CompleteTime` = :currentTime WHERE `OngoingTime` < :referenceTime")
+    @SqlUpdate("UPDATE `Ride` SET `Status` = 'COMPLETE', `CompleteTime` = :currentTime WHERE `OngoingTime` < :referenceTime AND `Status` = 'ONGOING'")
     void completeRide(
             @Bind("currentTime") Timestamp currentTime,
             @Bind("referenceTime") Timestamp referenceTime

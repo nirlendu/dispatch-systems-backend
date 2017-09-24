@@ -1,13 +1,13 @@
 package com.app.api.resources;
 
+import com.app.api.core.Ride.RideRequest;
 import com.google.inject.Inject;
 import com.app.api.core.Ride.RideResponse;
 import com.app.api.logic.RideLogic;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/v1/auth")
@@ -20,10 +20,35 @@ public class RideResource {
         this.rideLogic = rideLogic;
     }
 
+    @POST
+    @Path("/new")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response insertRide(
+            RideRequest rideRequest
+    ){
+        String rideId = rideLogic.insertRide(
+                rideRequest.getRideId(),
+                rideRequest.getCustomerId()
+        );
+
+        return Response.ok(rideId, MediaType.APPLICATION_JSON).build();
+    }
+
     @GET
-    @Path("/get-all")
+    @Path("/rides/{driverId}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<RideResponse> getRidesByDriver(
+            @PathParam("driverId") String driverId
+    ) {
+        List<RideResponse> rides = rideLogic.getRidesByDriver(driverId);
+        return rides;
+    }
+
+    @GET
+    @Path("/all-rides")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<RideResponse> getRides() throws Exception {
+    public List<RideResponse> getRides(){
 
         List<RideResponse> rides = rideLogic.getRides();
         return rides;

@@ -19,8 +19,40 @@ public class RideLogic {
         this.rideDao = rideDao;
     }
 
+    public String insertRide(
+            String rideId,
+            String customerId
+    ){
+        try {
 
-    public List<RideResponse> getRides() throws Exception{
+            rideDao.insertRide(
+                    rideId,
+                    customerId
+            );
+            return rideId;
+
+        } catch (Exception e){
+            this.logger.error(Throwables.getStackTraceAsString (e));
+            return null;
+        }
+    }
+
+    public List<RideResponse> getRidesByDriver(
+            String driverId
+    ){
+        try {
+
+            List<RideResponse> rides = rideDao.getRidesByDriver(driverId);
+
+            return rides;
+
+        } catch (Exception e){
+            this.logger.error(Throwables.getStackTraceAsString (e));
+            return null;
+        }
+    }
+
+    public List<RideResponse> getRides(){
         try {
 
             List<RideResponse> rides = rideDao.getRides();

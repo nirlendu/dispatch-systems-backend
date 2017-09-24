@@ -1,11 +1,11 @@
 package com.app.api.module;
 
+import com.app.api.MainConfiguration;
+import com.app.api.dao.RideDao;
 import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
-import com.app.api.MainConfiguration;
-import com.app.api.dao.RideDao;
 import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.setup.Environment;
 import org.skife.jdbi.v2.DBI;

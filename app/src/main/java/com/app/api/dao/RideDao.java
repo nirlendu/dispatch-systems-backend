@@ -9,6 +9,7 @@ import org.skife.jdbi.v2.sqlobject.customizers.Mapper;
 import ru.vyarus.guicey.jdbi.installer.repository.JdbiRepository;
 import ru.vyarus.guicey.jdbi.tx.InTransaction;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @JdbiRepository
@@ -21,11 +22,28 @@ public interface RideDao {
             @Bind("customerId") String customerId
     );
 
-    @SqlQuery("SELECT * FROM `Ride` WHERE `Status` = :status OR DriverId = :driverId ")
+    @SqlQuery("SELECT * FROM `Ride` WHERE `Status` = 'ONGOING' AND DriverId = :driverId")
+    List<RideResponse> getOngoingRides(
+            @Bind("driverId") String driverId
+    );
+
+    @SqlUpdate("UPDATE `Ride` SET `Status` = 'ONGOING', `DriverId` = :driverId, `OngoingTime` = :currentTime WHERE `RideId` = :rideId AND `Status` = 'WAITING' ")
+    void acceptRide(
+            @Bind("rideId") String rideId,
+            @Bind("currentTime") Timestamp currentTime,
+            @Bind("driverId") String driverId
+    );
+
+    @SqlUpdate("UPDATE `Ride` SET `Status` = 'COMPLETE', `CompleteTime` = :currentTime WHERE `OngoingTime` < :referenceTime")
+    void completeRide(
+            @Bind("currentTime") Timestamp currentTime,
+            @Bind("referenceTime") Timestamp referenceTime
+    );
+
+    @SqlQuery("SELECT * FROM `Ride` WHERE `Status` = 'WAITING' OR DriverId = :driverId ")
     @Mapper(RideMapper.class)
-    List<RideResponse> getRidesByDriverOrStatus(
-            @Bind("driverId") String driverId,
-            @Bind("status") String status
+    List<RideResponse> getRidesByDriver(
+            @Bind("driverId") String driverId
     );
 
     @SqlQuery("SELECT * FROM `Ride`")

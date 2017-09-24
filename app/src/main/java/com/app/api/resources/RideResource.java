@@ -1,9 +1,9 @@
 package com.app.api.resources;
 
 import com.app.api.core.Ride.RideRequest;
-import com.google.inject.Inject;
 import com.app.api.core.Ride.RideResponse;
 import com.app.api.logic.RideLogic;
+import com.google.inject.Inject;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -36,8 +36,24 @@ public class RideResource {
     }
 
     @GET
+    @Path("/accept/{rideId}/{driverId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response acceptRide(
+            @PathParam("rideId") String rideId,
+            @PathParam("driverId") String driverId
+    ) {
+
+        String returnedRideId = rideLogic.acceptRide(
+                rideId,
+                driverId
+        );
+
+        return Response.ok(returnedRideId, MediaType.APPLICATION_JSON).build();
+    }
+
+    @GET
     @Path("/driver/{driverId}")
-    @Produces({MediaType.APPLICATION_JSON})
+    @Produces(MediaType.APPLICATION_JSON)
     public List<RideResponse> getRidesByDriver(
             @PathParam("driverId") String driverId
     ) {

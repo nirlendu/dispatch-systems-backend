@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd"
+>
+
+	<changeSet id="1" author="nirlendu">
+	
+	    <createTable tableName="MAIN_LISTING">
+	        <column name="id" type="bigint" autoIncrement="true">
+	            <constraints primaryKey="true" nullable="false"/>
+	        </column>
+	        <column name="CODE" type="varchar(40)">
+	        	<constraints nullable="false"/>
+	        </column>
+	        <column name="NAME" type="varchar(50)" />
+	        <column name="IMAGE" type="varchar(50)" />
+	        <column name="DESCRIPTION" type="varchar(400)" />
+	    </createTable>
+
+		<createTable tableName="LISTING_DETAILS">
+			<column name="id" type="bigint" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="CODE" type="varchar(40)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="NAME" type="varchar(50)" />
+			<column name="IMAGE" type="varchar(50)" />
+			<column name="DESCRIPTION" type="varchar(400)" />
+		</createTable>
+
+
+		<addUniqueConstraint
+            columnNames="CODE"
+            constraintName="CONST_CODE"
+            tableName="MAIN_LISTING"
+        />
+        
+         <insert tableName="MAIN_LISTING">
+          	<column name="CODE">1</column>
+          	<column name="NAME">Jaipur Street Food Experience</column>
+          	<column name="IMAGE">food.jpg</column>
+          	<column name="DESCRIPTION">India is about spices but everything is not spicy. Try the cheap street food.</column>
+         </insert>
+         
+         <insert tableName="MAIN_LISTING">
+          	<column name="CODE">2</column>
+          	<column name="NAME">Jaipur Street Food Experience</column>
+          	<column name="IMAGE">food.jpg</column>
+          	<column name="DESCRIPTION">India is about spices but everything is not spicy. Try the cheap street food.</column>
+         </insert>
+	          
+	</changeSet>
+
+</databaseChangeLog>

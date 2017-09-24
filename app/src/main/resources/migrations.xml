@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd"
+>
+	<changeSet id="2" author="nirlendu">
+
+		<createTable tableName="MAIN_LISTING">
+			<column name="id" type="bigint" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="CODE" type="varchar(40)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="NAME" type="varchar(50)" />
+			<column name="IMAGE" type="varchar(50)" />
+			<column name="DESCRIPTION" type="varchar(400)" />
+		</createTable>
+
+		<addUniqueConstraint
+				columnNames="CODE"
+				constraintName="CONST_CODE"
+				tableName="MAIN_LISTING"
+		/>
+
+	</changeSet>
+
+</databaseChangeLog>

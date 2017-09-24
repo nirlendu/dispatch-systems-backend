@@ -21,10 +21,11 @@ public interface RideDao {
             @Bind("customerId") String customerId
     );
 
-    @SqlQuery("SELECT * FROM `Ride` WHERE `Status` = `WAITING` OR DriverId = :driverId ")
+    @SqlQuery("SELECT * FROM `Ride` WHERE `Status` = :status OR DriverId = :driverId ")
     @Mapper(RideMapper.class)
-    List<RideResponse> getRidesByDriver(
-            @Bind("customerId") String driverId
+    List<RideResponse> getRidesByDriverOrStatus(
+            @Bind("driverId") String driverId,
+            @Bind("status") String status
     );
 
     @SqlQuery("SELECT * FROM `Ride`")

@@ -42,7 +42,7 @@ public class RideLogic {
     ){
         try {
 
-            List<RideResponse> rides = rideDao.getRidesByDriver(driverId);
+            List<RideResponse> rides = rideDao.getRidesByDriverOrStatus(driverId, "WAITING");
 
             return rides;
 

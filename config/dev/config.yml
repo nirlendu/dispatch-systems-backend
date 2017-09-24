@@ -9,6 +9,6 @@ server:
 # Database settings.
 database:
     driverClass: com.mysql.jdbc.Driver
-    user: panallyadmin
-    password: admin@panally
-    url: jdbc:mysql://localhost:3306/panally
+    user: test
+    password: test
+    url: jdbc:mysql://localhost:3306/test

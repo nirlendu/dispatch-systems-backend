@@ -10,7 +10,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
-@Path("/v1/auth")
+@Path("/v1/ride")
 public class RideResource {
 
     private RideLogic rideLogic;
@@ -23,7 +23,7 @@ public class RideResource {
     @POST
     @Path("/new")
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces({MediaType.APPLICATION_JSON})
+    @Produces(MediaType.APPLICATION_JSON)
     public Response insertRide(
             RideRequest rideRequest
     ){
@@ -36,7 +36,7 @@ public class RideResource {
     }
 
     @GET
-    @Path("/rides/{driverId}")
+    @Path("/driver/{driverId}")
     @Produces({MediaType.APPLICATION_JSON})
     public List<RideResponse> getRidesByDriver(
             @PathParam("driverId") String driverId
@@ -46,10 +46,9 @@ public class RideResource {
     }
 
     @GET
-    @Path("/all-rides")
+    @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
     public List<RideResponse> getRides(){
-
         List<RideResponse> rides = rideLogic.getRides();
         return rides;
     }

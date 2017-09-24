@@ -11,13 +11,13 @@ public class RideMapper implements ResultSetMapper<RideResponse>{
 
     public RideResponse map(int i, ResultSet resultSet, StatementContext statementContext)throws SQLException {
         return new RideResponse(
-                resultSet.getString("rideId"),
-                resultSet.getString("customerId"),
-                resultSet.getString("status"),
-                resultSet.getString("driverId"),
-                resultSet.getTimestamp("requestTime"),
-                resultSet.getTimestamp("ongoingTime"),
-                resultSet.getTimestamp("completeTime")
+                resultSet.getString("RideId"),
+                resultSet.getString("CustomerId"),
+                resultSet.getString("Status"),
+                resultSet.getString("DriverId"),
+                resultSet.getTimestamp("RequestTime"),
+                resultSet.getTimestamp("OngoingTime"),
+                resultSet.getTimestamp("CompleteTime")
         );
     }
 }
